@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<h:head>
+			<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+			<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+			<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage"> 
+		<div class="container">
+	 		<div class="navbar navbar-inverse">
+	    		<div class="navbar-brand">
+	        		#{titleController.pageTitle} - Add Contact
+	        	</div>
+	    	</div>
+	    	<div>
+				<f:view>
+					<h:form>
+						<h1><h:outputText value="Create a new contact"/></h1>
+						<table class="table table-bordered">
+							<tr class="#{!name.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="name" for="name" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="name" value="#{contact.contactName}" 
+		                            			 title="name" required="true" 
+		                            			 requiredMessage="Please enter the contact name!"
+		                            			 validatorMessage="Your name can have only Alphabets" >
+		                            			 <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" /> 
+		                            </h:inputText> 
+		                            <br/>
+		                            <h:message for="name" class="#{!name.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr>
+		                        <td width ="200">
+		                            <h:outputLabel value="gender" for="gender" />
+		                        </td>
+		                        <td>
+		                            <h:selectOneMenu id="gender" value="#{contact.contactGender}">
+		                            	<f:selectItem itemValue="#{null}" noSelectionOption="true"/>
+    									<f:selectItems value="#{contactApplication.GENDERS}"/>
+									</h:selectOneMenu>
+		                            <br/>
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr class="#{!phoneNumber.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="phoneNumber" for="phoneNumber" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="phoneNumber" value="#{contact.contactPhoneNumber}" 
+		                            			 title="phoneNumber" required="true" 
+		                            			 requiredMessage="Please enter the contact phone number!">                          			 		                            			 			                            			 	
+		                            </h:inputText>
+		                            <br/>
+		                            <h:message for="phoneNumber" class="#{!phoneNumber.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr class="#{!email.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="email" for="email" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="email" value="#{contact.contactEmail}" 
+		                            			 title="email" required="true" 
+		                            			 requiredMessage="Please enter the contact email"
+		                            			 validatorMessage="Invalid email format.   ***@***.*** "> 
+		                            			 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />		 			      
+		                            </h:inputText>
+		                            <br/>
+		                            <h:message for="email" class="#{!email.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr>
+		                        <td width ="200">
+		                            <h:outputLabel value="customer" for="customer" />
+		                        </td>
+		                        <td>
+		                        	<h:selectOneMenu id="customer" value="#{contact.customer}">
+		                        		<f:selectItem itemValue="#{null}" noSelectionOption="true" required="true"
+		                        		requiredMessage="Please select a customer"/>
+    									<f:selectItems value="#{customerApplication.customers}" />
+									</h:selectOneMenu>
+		                        </td>
+	                    	</tr>
+						</table>
+						<h:commandButton id="submit" value="Submit" action="#{addContact.addContact(contact)}" class="btn btn-info btn-sm" >
+                		</h:commandButton>
+                		<h:link id="close" value="Close" outcome="/admin/contactIndex.xhtml" class="btn btn-info btn-sm" />
+					</h:form>
+			    </f:view>
+	    	</div>
+	 	</div>	            
+	</body> 
+</html>

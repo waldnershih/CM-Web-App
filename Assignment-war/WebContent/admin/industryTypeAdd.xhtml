@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<h:head>
+			<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+			<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+			<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage">  
+		<div class="container">
+	 		<div class="navbar navbar-inverse">
+	    		<div class="navbar-brand">
+	        		#{titleController.pageTitle} - Add Industry Type
+	        	</div>
+	    	</div>
+	    	<div>
+				<f:view>
+					<h:form>
+						<h1><h:outputText value="Create a new industry type"/></h1>
+						<table class="table table-bordered">
+							<tr class="#{!type.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="type" for="type" />
+		                        </td>		                        
+		                        <td>
+		                            <h:inputText id="type" value="#{industryType.industryTypeName}" 
+		                            			 title="type" required="true" 
+		                            			 requiredMessage="Please enter the industry type name!"
+		                            			 validatorMessage="Your type can have only Alphabets" >
+		                            			 <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" /> 
+		                            </h:inputText> 
+		                            <br/>
+		                            <h:message for="type" class="#{!type.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+						</table>
+						<h:commandButton id="submit" value="Submit" action="#{addIndustryType.addIndustryType(industryType)}" class="btn btn-info btn-sm" >
+                		</h:commandButton>
+                		<h:link id="close" value="Close" outcome="/admin/industryTypeIndex.xhtml" class="btn btn-info btn-sm" />
+					</h:form>
+			    </f:view>
+	    	</div>
+	 	</div>	            
+	</body> 
+</html>

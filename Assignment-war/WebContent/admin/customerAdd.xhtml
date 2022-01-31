@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<h:head>
+			<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+			<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+			<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage">  
+		<div class="container">
+	 		<div class="navbar navbar-inverse">
+	    		<div class="navbar-brand">
+	        		#{titleController.pageTitle} - Add Customer
+	        	</div>
+	    	</div>
+	    	<div>
+				<f:view>
+					<h:form>
+						<h1><h:outputText value="Create a new customer"/></h1>
+						<table class="table table-bordered">
+							<tr class="#{!name.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="name" for="name" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="name" value="#{customer.customerName}" 
+		                            			 title="name" required="true" 
+		                            			 requiredMessage="Please enter the customer name!"
+		                            			 validatorMessage="Your name can have only Alphabets" >
+		                            			 <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" /> 
+		                            </h:inputText> 
+		                            <br/>
+		                            <h:message for="name" class="#{!name.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr class="#{!phoneNumber.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="phoneNumber" for="phoneNumber" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="phoneNumber" value="#{customer.customerPhoneNumber}" 
+		                            			 title="phoneNumber" required="true" 
+		                            			 requiredMessage="Please enter the cpmtact phone number!"
+		                            			 validatorMessage="Please enter a phone number between 0100000000 and 0999999999" 
+		                            			 converterMessage="Please enter a phone number">		                            			 
+		                            			 	<f:validateLongRange minimum="100000000" maximum="0999999999"/>
+		                            			 	<f:convertNumber integerOnly="true"/>		                            			 			                            			 	
+		                            </h:inputText>
+		                            <br/>
+		                            <h:message for="phoneNumber" class="#{!phoneNumber.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr class="#{!email.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="email" for="email" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="email" value="#{customer.customerEmail}" 
+		                            			 title="email" required="true" 
+		                            			 requiredMessage="Please enter the customer email"
+		                            			 validatorMessage="Invalid email format.   ***@***.*** "> 
+		                            			 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>	
+		                            </h:inputText>	 
+		                            <br/>			      
+		                            <h:message for="email" class="#{!email.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr class="#{!nationality.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="nationality" for="nationality" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="nationality" value="#{customer.customerNationality}" 
+		                            			 title="nationality" required="true" 
+		                            			 requiredMessage="Please enter the customer nationality"/> 	
+		                            <br/>		      
+		                            <h:message for="nationality" class="#{!nationality.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr>
+		                        <td width ="200">
+		                            <h:outputLabel value="businessPartner" for="businessPartner" />
+		                        </td>
+		                        <td>
+		                            <h:selectOneMenu id="businessPartner" value="#{customer.customerBusinessPartner}">
+		                            	<f:selectItem itemValue="#{null}" noSelectionOption="true"/>
+    									<f:selectItems value="#{customerApplication.BUSINESS_PARTNERS}"/>
+									</h:selectOneMenu>
+		                            <br/>
+		                        </td>
+	                    	</tr>
+	                    	
+	                    	<tr>
+				            	<td width ="200">
+				                	<h:outputLabel value="industryType" for="industryType" />
+				                </td>
+				                <td>
+				                    <h:selectOneMenu id="industryType" value="#{customer.industryType}">
+				                    	<f:selectItem itemValue="#{null}" noSelectionOption="true"/>
+		    							<f:selectItems value="#{industryTypeApplication.industryTypes}" />
+									</h:selectOneMenu>
+				                </td>
+	               			</tr>
+	                    	
+	                    	<tr>
+								<td width ="200">
+				                	<h:outputLabel value="user" for="user" />
+				                </td>
+								<td valign="bottom">
+									<h:outputLabel id = "User">#{customerManagedBean.user.userName}</h:outputLabel> 
+								</td>
+							</tr>
+	               			
+	                    	<tr class="#{!streetNumber.valid ? 'has-error' : 'none'}">
+                        		<td width ="200">
+                            		<h:outputLabel value="streetNumber" for="streetNumber" />
+                        		</td>
+	                        	<td>
+		                            <h:inputText id="streetNumber" value="#{customer.streetNumber}" 
+		                            title="streetNumber" required="true" 
+		                            requiredMessage="Please enter the street number!" 
+		                            validatorMessage="Please enter a street number between 1 and 1000" 
+		                            converterMessage="Please enter a number">
+			                            <f:convertNumber integerOnly="true"/>
+										<f:validateLongRange minimum="1" maximum="1000" /> 
+									</h:inputText>
+		                            <br/>
+		                            <h:message for="streetNumber" class="#{!streetNumber.valid ? 'label label-warning' : 'none'}" />
+	                        	</td>
+		                    </tr>
+		
+		                    <tr class="#{!streetAddress.valid ? 'has-error' : 'none'}">
+		                        <td>
+		                            <h:outputLabel value="streetAddress" for="streetAddress" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="streetAddress" value="#{customer.streetAddress}" 
+		                            title="streetAddress" required="true" 
+		                            requiredMessage="Please enter the street address!"/>
+		                            <br/>
+		                            <h:message for="streetAddress" class="#{!streetAddress.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+		                    
+		                    </tr>
+		                    
+		                    <tr class="#{!suburb.valid ? 'has-error' : 'none'}">
+		                        <td>
+		                            <h:outputLabel value="suburb" for="suburb" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="suburb" value="#{customer.suburb}" 
+		                            title="suburb" required="true" 
+		                            requiredMessage="Please enter the suburb!"/>
+		                        	<br/>
+		                            <h:message for="suburb" class="#{!suburb.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+		                    
+		                    </tr>
+		                    
+		                    <tr class="#{!state.valid ? 'has-error' : 'none'}">
+		                        <td>
+		                            <h:outputLabel value="state" for="state"/>
+		                        </td>
+		                        <td>
+		                            <h:inputText id="state" value="#{customer.state}" 
+		                            title="state" size="3" required="true" 
+		                            requiredMessage="Please enter the state!"/>
+		                            <br/>
+		                            <h:message for="state" class="#{!state.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+		                    
+		                    </tr>
+		                    <tr class="#{!postcode.valid ? 'has-error' : 'none'}">
+		                        <td>
+		                            <h:outputLabel value="postcode" for="postcode" />
+		                        </td>
+		                        <td>
+		                            <h:inputText id="postcode" value="#{customer.postcode}" 
+		                            title="postcode" required="true" 
+		                            requiredMessage="Please enter the postcode!" 
+		                            validatorMessage="Please enter a postcode between 0200 and 4700" 
+		                            converterMessage="Please enter a number">
+			                            <f:convertNumber integerOnly="true"/>
+										<f:validateLongRange minimum="200" maximum="4700" /> 
+									</h:inputText>
+									<br/>
+									<h:message for="postcode" class="#{!postcode.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+		                    
+		                    </tr>
+						</table>
+						<h:commandButton id="submit" value="Submit" action="#{addCustomer.addCustomer(customer)}" class="btn btn-info btn-sm" >
+                		</h:commandButton>
+                		<h:link id="close" value="Close" outcome="/admin/customerIndex.xhtml" class="btn btn-info btn-sm" />
+					</h:form>
+			    </f:view>
+	    	</div>
+	 	</div>	            
+	</body> 
+</html>

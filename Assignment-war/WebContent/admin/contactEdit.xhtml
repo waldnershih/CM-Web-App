@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<h:head>
+			<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+			<h:outputStylesheet name="css/style.css" />
+			<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage"> 
+		<div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Edit Contact
+                </div>
+            </div>
+            
+            <h:form id="MyForm">
+            	<table class="table table-bordered ">
+	            	<tr>
+						<td width="150" valign="top">Id:</td>
+						<td valign="bottom">
+							<h:outputLabel id = "Id" >#{contactController.contact.contactId}</h:outputLabel> 
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Name:</td>
+						<td valign="bottom">
+							<h:inputText id = "Name" value="#{contactController.contact.contactName}"
+										 binding="#{contactName}" required="true"
+										 validatorMessage="Please enter a valid contact name"
+										 requiredMessage="Please enter a contact name">
+							</h:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Gender:</td>
+						<td valign="bottom">
+							<h:selectOneMenu id="contactGender" value="#{contactController.contact.contactGender}">
+    							<f:selectItem itemValue="#{null}" noSelectionOption="true"/>
+    							<f:selectItems value="#{contactApplication.GENDERS}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Phone Number:</td>
+						<td valign="bottom">
+							<h:inputText id = "PhoneNumber" value="#{contactController.contact.contactPhoneNumber}"
+										 binding="#{contactPhoneNumber}" required="true"
+										 validatorMessage="Please enter a valid phone number. Digits only"
+										 requiredMessage="Please enter a phone number">
+							</h:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Email:</td>
+						<td valign="bottom">
+							<h:inputText id = "Email" value="#{contactController.contact.contactEmail}"
+										 binding="#{contactEmail}" required="true"
+										 requiredMessage="Please enter an email"
+										 validatorMessage="Invalid email format.   ***@***.*** "> 		                       								 
+							
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</h:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Customer:</td>
+						<td valign="bottom">
+							<h:selectOneMenu id="Customer" value="#{customer.customerString}">
+    							<f:selectItem itemValue="#{null}" noSelectionOption="true" 
+    							required="true" requiredMessage="Please select a customer"/>
+    							<f:selectItems value="#{customerApplication.customers}"/>
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Staff:</td>
+						<td valign="bottom">
+							<h:outputLabel id = "User" >#{contactController.contact.user}</h:outputLabel> 
+						</td>
+					</tr>
+            	</table>
+            	<h:commandButton id="save" value="Save" 
+            	action="#{contactManagedBean.editContact(contactController.contact, customer.customerString)}"  
+            	class="btn btn-info btn-sm" >
+                    <f:param name="contactID" value="#{contactController.contactId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="/admin/contactIndex.xhtml" class="btn btn-info btn-sm" />
+            </h:form>
+        </div>
+	</body> 
+</html>

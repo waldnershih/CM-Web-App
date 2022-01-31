@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<h:head>
+		<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>	
+		<h:outputStylesheet name="css/style.css" />
+		<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage"> 
+		<div class="container">
+			<div class="navbar-brand">
+				Welcome #{customerManagedBean.user.userName}
+			</div>
+			<div class="navbar-brand">
+				#{contactManagedBean.user.userName} is logging
+			</div>
+		</div>
+		<h:form id="Myform">
+			<div>
+				<h:commandButton id="customer" value="Customer" action="/admin/customerIndex.xhtml" style="width:100px"  class="btn btn-info btn-sm"/>
+				<h:commandButton id="contact" value="Contact" action="/admin/contactIndex.xhtml" style="width:100px"  class="btn btn-info btn-sm"/>
+				<h:commandButton id="industryType" value="IndustryType" action="/admin/industryTypeIndex.xhtml" style="width:100px"  class="btn btn-info btn-sm"/>
+				<h:commandButton id="user" value="User" action="/admin/userIndex.xhtml" style="width:100px"  class="btn btn-info btn-sm"/>
+				<h:commandButton id="changePassword" value="Change Password" action="/admin/passwordChange.xhtml" style="width:150px"  class="btn btn-info btn-sm"/>
+				<h:commandButton id="logout" value="Logout" action="#{logout.logout}" style="width:100px" class="btn btn-info btn-sm"/>
+			</div>
+		</h:form>
+	</body> 
+</html>

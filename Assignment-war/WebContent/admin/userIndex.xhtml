@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<h:head>
+		<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+		<h:outputStylesheet name="css/style.css" />
+		<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage"> 
+		<div class="container">
+			<div class="navbar-brand">
+				#{customerManagedBean.user.userName} 
+				User Management
+			</div>
+		</div>
+		<h:form id="Myform">
+			<div>
+				<h:commandButton id="Home" value="Home" action="/admin/index.xhtml" style="width:100px" class="btn btn-info btn-sm"/>
+				<h:commandButton id="customer" value="Customer" action="/admin/customerIndex.xhtml" style="width:100px" class="btn btn-info btn-sm"/>
+				<h:commandButton id="contact" value="Contact" action="/admin/contactIndex.xhtml" style="width:100px" class="btn btn-info btn-sm"/>
+				<h:commandButton id="industryType" value="IndustryType" action="/admin/industryTypeIndex.xhtml" style="width:100px" class="btn btn-info btn-sm"/>
+				<h:commandButton id="changePassword" value="Change Password" action="/admin/passwordChange.xhtml" style="width:150px"  class="btn btn-info btn-sm"/>
+				<h:commandButton id="logout" value="Logout" action="#{logout.logout}" style="width:100px" class="btn btn-info btn-sm"/>
+			</div>
+			 <table class="table table-bordered table-striped" >
+			 	<tr>
+			 		<td><h:outputLabel id="Id" value="Id"/></td>
+			 		<td><h:outputLabel id="Name" value="Name"/></td>
+			 		<td><h:outputLabel id="Type" value="Type"/></td>
+			 	</tr>
+			 	<ui:repeat id="Myrepeat" value="#{userApplication.users}" var="user" varStatus="status">
+			 		<tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outName').textContent"> 
+			 			<td>
+			 				<h:outputText id="userID" value="#{userApplication.users.get(status.index).userId}"/>
+			 			</td>
+			 			<td>
+			 				<h:outputText id="outName" value="#{userApplication.users.get(status.index).userName}"/>
+			 			</td>
+			 			<td>
+			 				<h:outputText id="outType" value="#{userApplication.users.get(status.index).userType}"/>
+			 			</td>
+			 			<td>
+			 				<h:link value="View |" outcome="/admin/userDetail.xhtml"
+			 				disabled="#{userApplication.users.get(status.index).userId==null}">
+			 					<f:param name="userID" value="#{status.index + 1}"/>
+			 				</h:link>
+			 				<h:link value="Edit |" outcome="/admin/userEdit.xhtml"
+			 				disabled="#{userApplication.users.get(status.index).userId==null}">
+			 					<f:param name="userID" value="#{status.index + 1}"/>
+			 				</h:link>
+			 				<h:commandLink value="Delete" action="#{removeUser.removeUser(userApplication.users.get(status.index).userId)}" 
+			 				disabled="#{userApplication.users.get(status.index).userId==null}">
+			 				</h:commandLink>
+			 				
+			 				<h:outputText value=" "/>
+			 			</td>
+			 		</tr>
+			 	</ui:repeat>
+			 </table>
+			 
+			 <div>
+			 	<h:commandButton id="add" value="Add" action="/admin/userAdd.xhtml" style="width:100px; height:35px" class="btn btn-info btn-sm"/>
+			 	<h:commandButton id="viewAll" value="View All" action="#{searchUser.searchAll()}" style="width:100px; height:35px" class="btn btn-info btn-sm">
+			 		<f:param name="userID" value="#{status.index+1}"/>
+			 	</h:commandButton>
+			 </div>
+			 <div>
+			 	<h:inputText value="#{searchUser.searchByInt}" id="searchById" required="false" 
+			 				onchange="if (document.getElementById('MyForm:searchById').value.trim() == ''){document.getElementById('MyForm:searchById').value= 0;}"/>
+			 	<h:commandButton id="searchId" value="Search by Id" style="width:150px; height:35px"
+			 	action="#{searchUser.searchUserById(searchUser.searchByInt)}"
+			 	class="btn btn-info btn-sm">
+			 		<f:param name="userID" value="#{status.index+1}"/>
+			 	</h:commandButton>
+			 	<h:inputText value="#{searchUser.searchByString}" id="searchByName" required="false" 
+			 				onchange="if (document.getElementById('MyForm:searchByName').value.trim() == ''){document.getElementById('MyForm:searchByName').value= 0;}"/>
+			 	<h:commandButton id="searchName" value="Search by Name" style="width:150px; height:35px"
+			 					action="#{searchUser.searchUserByName(searchUser.searchByString)}" 
+			 					class="btn btn-info btn-sm">
+			 		<f:param name="userID" value="#{status.index+1}"/>
+			 	</h:commandButton>
+			 </div>
+			 
+		</h:form>
+	</body> 
+</html>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<h:head>
+			<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+			<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+			<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage">  
+		<div class="container">
+	 		<div class="navbar navbar-inverse">
+	    		<div class="navbar-brand">
+	        		#{titleController.pageTitle} - Add User
+	        	</div>
+	    	</div>
+	    	<div>
+				<f:view>
+					<h:form>
+						<h1><h:outputText value="Create"/></h1>
+						<table class="table table-bordered" >
+		                    <tr class="#{!type.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="name" for="name" />
+		                        </td>		                        
+		                        <td>
+		                            <h:inputText id="name" value="#{user.userName}" 
+		                            			 title="name" required="true" 
+		                            			 requiredMessage="Please enter the user name!"
+		                            			 validatorMessage="Your type can have only Alphabets" >
+		                            			 <f:validateRegex pattern="^([a-zA-Z]+(.)?[\s]*)$" /> 
+		                            </h:inputText> 
+		                            <br/>
+		                            <h:message for="name" class="#{!name.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+	                    	<tr class="#{!type.valid ? 'has-error' : 'none'}">
+		                        <td width ="200">
+		                            <h:outputLabel value="password" for="password" />
+		                        </td>		                        
+		                        <td>
+		                            <h:inputText id="password" value="#{user.userPassword}" 
+		                            			 title="password" required="true" 
+		                            			 requiredMessage="Please enter the user password!">
+		                            </h:inputText> 
+		                            <br/>
+		                            <h:message for="password" class="#{!password.valid ? 'label label-warning' : 'none'}" />
+		                        </td>
+	                    	</tr>
+							<tr>
+		                        <td width ="200">
+		                            <h:outputLabel value="type" for="type" />
+		                        </td>		                        
+		                        <td>
+		                            <h:selectOneMenu id="type" value="#{user.userType}">
+    									<f:selectItems value="#{userApplication.USER_TYPE}"/>
+									</h:selectOneMenu> 
+		                            <br/>
+		                        </td>
+	                    	</tr>
+						</table>
+						<h:commandButton id="submit" value="Submit" action="#{addUser.addUser(user)}" class="btn btn-info btn-sm" >
+                		</h:commandButton>
+                		<h:link id="close" value="Close" outcome="/admin/userIndex.xhtml" class="btn btn-info btn-sm" />
+					</h:form>
+			    </f:view>
+	    	</div>
+	 	</div>	            
+	</body> 
+</html>

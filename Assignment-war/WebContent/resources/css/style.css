@@ -1,0 +1,22 @@
+.error {
+	color: red;
+	font-weight: bold;
+}
+.label-warning {
+	color: white;	
+}
+
+.Bimage{
+	background-image:url(#{request.contextPath}/resources/images/flower.jpg);	
+	background-size:cover;
+}
+
+.titleStyle{
+	color: #004080;
+	font-weight: bold;
+}
+
+.webFont{
+	color: #004080;
+	font-weight: bold;
+}

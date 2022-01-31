@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<h:head>
+			<h:outputStylesheet library= "css" name = "bootstrap.min.css"></h:outputStylesheet>
+			<h:outputStylesheet name="css/style.css" />
+			<title>#{titleController.pageTitle}</title>
+	</h:head> 
+	<body class="Bimage"> 
+		<div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Edit IndustryType
+                </div>
+            </div>
+            
+            <h:form id="MyForm">
+            	<table class="table table-bordered ">
+	            	<tr>
+						<td width="150" valign="top">Id:</td>
+						<td valign="bottom">
+							<h:outputLabel id = "Id" >#{industryTypeController.industryType.industryTypeId}</h:outputLabel> 
+						</td>
+					</tr>
+					<tr>
+						<td width="100" valign="top">Type:</td>
+						<td valign="bottom">
+							<h:inputText id = "Type" value="#{industryTypeController.industryType.industryTypeName}"
+										 binding="#{type}" required="true"
+										 validatorMessage="Please enter a valid industry type name"
+										 requiredMessage="Please enter a industry type name">
+							</h:inputText>
+						</td>
+					</tr>				
+            	</table>
+            	<h:commandButton id="save" value="Save" action="#{industryTypeManagedBean.editIndustryType(industryTypeController.industryType)}"  class="btn btn-info btn-sm" >
+                    <f:param name="industryTypeID" value="#{industryTypeController.industryTypeId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="/admin/industryTypeIndex.xhtml" class="btn btn-info btn-sm" />
+            </h:form>
+        </div>
+	</body> 
+</html>
