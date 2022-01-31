@@ -1,1 +1,2 @@
-# CM-Web-App-
+# CM-Web-App(Customer Management Web Application)
+Student Assignment
